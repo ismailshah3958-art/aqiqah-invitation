@@ -63,6 +63,24 @@ body {
   pointer-events: none;
 }
 
+.page-bg::after {
+  content: '';
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  bottom: -80px;
+  left: -60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196, 160, 98, 0.12) 0%, transparent 70%);
+  animation: blob-float 18s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, -25px) scale(1.08); }
+}
+
 .sunburst {
   position: absolute;
   top: -50px;
@@ -72,6 +90,13 @@ body {
   color: var(--gold-mid);
   opacity: 0.26;
   pointer-events: none;
+  transform-origin: center center;
+  animation: sunburst-spin 100s linear infinite;
+}
+
+@keyframes sunburst-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 #particles-canvas {
@@ -91,7 +116,7 @@ body {
   justify-content: center;
   background: rgba(51, 45, 36, 0.5);
   backdrop-filter: blur(6px);
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 .welcome-overlay.is-hidden {
@@ -108,6 +133,13 @@ body {
   border-radius: 4px;
   border: 1px solid rgba(140, 98, 57, 0.35);
   cursor: pointer;
+  animation: welcome-card-in 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+  box-shadow: 0 20px 60px rgba(51, 45, 36, 0.15);
+}
+
+@keyframes welcome-card-in {
+  from { opacity: 0; transform: translateY(24px) scale(0.96); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .welcome-bismillah {
@@ -116,10 +148,12 @@ body {
   font-weight: 700;
   line-height: 1.65;
   margin-bottom: 1rem;
-  background: var(--gradient-gold);
+  background: linear-gradient(90deg, #8c6239, #d4af37, #c9a84c, #8c6239);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 7s ease-in-out infinite;
 }
 
 .welcome-text {
@@ -147,6 +181,13 @@ body {
   border-radius: 50%;
   border: 1px solid var(--gold-mid);
   position: relative;
+  animation: pulse-ring 2.2s ease-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(184, 148, 74, 0.45); }
+  70% { box-shadow: 0 0 0 12px rgba(184, 148, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(184, 148, 74, 0); }
 }
 
 .welcome-pulse::after {
@@ -196,6 +237,14 @@ body {
   margin: 0 auto;
   padding: 2.75rem 1.75rem 3rem;
   text-align: center;
+  opacity: 0;
+  transform: translateY(30px) scale(0.96);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+body.invitation-open .invitation {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* ── Ornament divider ── */
@@ -206,6 +255,79 @@ body {
   margin: 1.35rem auto;
   max-width: 300px;
   color: var(--gold-mid);
+}
+
+.ornament-divider svg path {
+  stroke-dasharray: 320;
+  stroke-dashoffset: 320;
+}
+
+.ornament-divider.is-drawn svg path {
+  animation: ornament-draw 1.4s ease forwards;
+}
+
+.ornament-divider svg circle {
+  opacity: 0;
+  transform-origin: center;
+}
+
+.ornament-divider.is-drawn svg circle {
+  animation: ornament-pop 0.5s ease 1s forwards;
+}
+
+@keyframes ornament-draw {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes ornament-pop {
+  from { opacity: 0; transform: scale(0); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes gold-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@keyframes float-soft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes name-reveal {
+  0% { opacity: 0; transform: scale(0.4) translateY(30px); filter: blur(10px); }
+  60% { transform: scale(1.08) translateY(-4px); }
+  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+}
+
+@keyframes label-pop {
+  from { opacity: 0; letter-spacing: 0.6em; transform: scale(0.9); }
+  to { opacity: 1; letter-spacing: 0.32em; transform: scale(1); }
+}
+
+@keyframes word-rise {
+  from { opacity: 0; transform: translateY(40px) rotateX(40deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+@keyframes burst-fly {
+  from { opacity: 1; transform: translate(0, 0) rotate(0deg) scale(1); }
+  to { opacity: 0; transform: translate(var(--tx), var(--ty)) rotate(var(--rot)) scale(0); }
+}
+
+@keyframes flash-fade {
+  from { opacity: 0.55; }
+  to { opacity: 0; }
+}
+
+@keyframes audio-pop {
+  from { opacity: 0; transform: scale(0) rotate(-180deg); }
+  to { opacity: 1; transform: scale(1) rotate(0deg); }
+}
+
+@keyframes map-pulse {
+  0%, 100% { box-shadow: 0 3px 14px rgba(140, 98, 57, 0.25); }
+  50% { box-shadow: 0 6px 28px rgba(212, 175, 55, 0.45); }
 }
 
 .ornament-divider svg {
@@ -225,10 +347,16 @@ body {
   font-weight: 700;
   line-height: 1.5;
   letter-spacing: 0;
-  background: var(--gradient-gold);
+  background: linear-gradient(90deg, #8c6239, #d4af37, #f0d878, #8c6239);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 4s ease-in-out infinite;
+}
+
+.header.show-now .bismillah-ar {
+  animation: name-reveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) both, gold-shimmer 4s ease-in-out 1s infinite;
 }
 
 .bismillah-en {
@@ -292,10 +420,35 @@ body {
   line-height: 1.35;
   margin-bottom: 0.45rem;
   padding: 0 0.25rem;
-  background: var(--gradient-gold);
+  background: linear-gradient(90deg, #8c6239, #a67c3a, #d4af37, #f0d878, #8c6239);
+  background-size: 300% 100%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: gold-shimmer 5s ease-in-out infinite;
+}
+
+.celebration.show-now .name-ar {
+  animation: name-reveal 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) both, gold-shimmer 5s ease-in-out 1.1s infinite;
+}
+
+.celebration.show-now .section-label {
+  animation: label-pop 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.intro-word {
+  display: inline-block;
+  opacity: 0;
+  margin-right: 0.18em;
+}
+
+.intro.show-now .intro-word {
+  animation: word-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(var(--wi) * 0.18s + 0.1s);
+}
+
+.intro.show-now .intro-sub {
+  animation: word-rise 0.8s ease 0.55s both;
 }
 
 .name-en {
@@ -327,6 +480,10 @@ body {
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+.ampersand.visible {
+  animation: float-soft 3s ease-in-out infinite, name-reveal 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 }
 
 /* ── Blessing message ── */
@@ -412,13 +569,34 @@ body {
   background: var(--gradient-gold-soft);
   border-radius: 999px;
   box-shadow: 0 3px 14px rgba(140, 98, 57, 0.25);
-  transition: transform 0.2s, box-shadow 0.2s;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.map-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.25) 50%, transparent 60%);
+  transform: translateX(-120%);
+  transition: transform 0.6s ease;
+}
+
+.map-btn:hover::after {
+  transform: translateX(120%);
+}
+
+.map-btn.visible {
+  animation: map-pulse 2.5s ease-in-out infinite;
 }
 
 .map-btn svg {
   width: 15px;
   height: 15px;
   flex-shrink: 0;
+  position: relative;
+  z-index: 1;
 }
 
 .map-btn:hover {
@@ -445,16 +623,145 @@ body {
   line-height: 1.55;
 }
 
-/* ── Reveal animation ── */
+/* ── Gold burst & flash ── */
+.gold-burst {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 20;
+  overflow: hidden;
+}
+
+.gold-burst__particle {
+  position: absolute;
+  left: 50%;
+  top: 45%;
+  width: 9px;
+  height: 9px;
+  margin: -4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f0d878, #d4af37);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.9);
+  animation: burst-fly 1.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.gold-flash {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  background: radial-gradient(circle at 50% 40%, rgba(212, 175, 55, 0.4), transparent 65%);
+  opacity: 0;
+}
+
+.gold-flash.is-active {
+  animation: flash-fade 0.85s ease forwards;
+}
+
+.audio-toggle.audio-enter {
+  animation: audio-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
+}
+
+/* ── Reveal animations ── */
 .reveal {
   opacity: 0;
-  transform: translateY(14px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+  transform: translateY(55px) scale(0.9);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.34, 1.2, 0.64, 1);
 }
 
 .reveal.visible {
   opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.reveal-slide-left {
+  transform: translateX(-70px) translateY(30px) scale(0.92);
+}
+
+.reveal-slide-left.visible {
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.reveal-slide-right {
+  transform: translateX(70px) translateY(30px) scale(0.92);
+}
+
+.reveal-slide-right.visible {
+  transform: translateX(0) translateY(0) scale(1);
+}
+
+.reveal-blur {
+  filter: blur(12px);
+  transform: translateY(55px) scale(0.88);
+}
+
+.reveal-blur.visible {
+  filter: blur(0);
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1.1s cubic-bezier(0.34, 1.2, 0.64, 1),
+    filter 1s ease;
+}
+
+.reveal-scale {
+  transform: translateY(40px) scale(0.5);
+}
+
+.reveal-scale.visible {
+  transform: translateY(0) scale(1);
+  transition:
+    opacity 0.85s ease,
+    transform 0.85s cubic-bezier(0.34, 1.65, 0.64, 1);
+}
+
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.75s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+.reveal-stagger.visible > * {
+  opacity: 1;
   transform: translateY(0);
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 0.2s; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 0.38s; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 0.55s; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 0.72s; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 0.88s; }
+
+.event-grid.reveal-stagger.visible > .event-col:nth-child(1) .event-item:nth-child(1) { transition-delay: 0.1s; }
+.event-grid.reveal-stagger.visible > .event-col:nth-child(1) .event-item:nth-child(2) { transition-delay: 0.22s; }
+.event-grid.reveal-stagger.visible > .event-col:nth-child(2) .event-item:nth-child(1) { transition-delay: 0.34s; }
+.event-grid.reveal-stagger.visible > .event-col:nth-child(2) .event-item:nth-child(2) { transition-delay: 0.46s; }
+
+.event-grid.reveal-stagger > .event-col > .event-item {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.event-grid.reveal-stagger.visible > .event-col > .event-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.intro.show-now .intro-heading {
+  animation: heading-glow 1s ease 0.2s both;
+}
+
+@keyframes heading-glow {
+  from { letter-spacing: 0.04em; opacity: 0.6; }
+  to { letter-spacing: -0.015em; opacity: 1; }
 }
 
 /* ── Responsive ── */
@@ -489,11 +796,43 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal {
+  .reveal,
+  .reveal-blur,
+  .reveal-scale,
+  .reveal-stagger > *,
+  .event-grid.reveal-stagger > .event-col > .event-item {
     opacity: 1;
     transform: none;
+    filter: none;
     transition: none;
   }
+
+  .invitation {
+    opacity: 1;
+    transform: none;
+  }
+
+  .bismillah-ar,
+  .name-ar,
+  .welcome-bismillah,
+  .ampersand.visible,
+  .sunburst,
+  .page-bg::after,
+  .welcome-pulse,
+  .intro-word,
+  .celebration.show-now .section-label,
+  .celebration.show-now .name-ar,
+  .header.show-now .bismillah-ar {
+    animation: none;
+  }
+
+  .reveal-slide-left,
+  .reveal-slide-right {
+    transform: none;
+  }
+
+  .ornament-divider svg path { stroke-dashoffset: 0; }
+  .ornament-divider svg circle { opacity: 1; transform: none; }
 
   #particles-canvas {
     display: none;
