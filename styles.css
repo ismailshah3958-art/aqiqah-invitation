@@ -1,19 +1,23 @@
-/* ── Design tokens (Photoshop match) ── */
+/* ── Design tokens (card match) ── */
 :root {
-  --gold-bright: #d4af37;
-  --gold-mid: #b8944a;
-  --gold-dark: #8c6239;
+  --gold-primary: #a68953;
+  --gold-bright: #c5a059;
+  --gold-mid: #a68953;
+  --gold-dark: #8c7348;
   --gold-deep: #8d6e45;
-  --brown: #332d24;
-  --text-muted: #706f6c;
-  --black: #111111;
+  --brown: #3c3228;
+  --brown-light: #5c4a3a;
+  --text-muted: #4a4038;
+  --black: #1a1a1a;
   --cream: #fdfbf7;
   --beige-wash: rgba(210, 195, 170, 0.22);
-  --gradient-gold: linear-gradient(90deg, #8c6239 0%, #a67c3a 25%, #c9a84c 55%, #d4af37 85%, #c4a040 100%);
-  --gradient-gold-soft: linear-gradient(180deg, #d4af37 0%, #b8944a 45%, #8c6239 100%);
-  --font-serif: 'Playfair Display', Georgia, serif;
+  --gradient-gold: linear-gradient(90deg, #7a5528 0%, #a67c3a 20%, #d4af37 45%, #f0dc82 58%, #d4af37 72%, #8b5e3c 100%);
+  --gradient-gold-text: linear-gradient(180deg, #f0dc82 0%, #e8cf6a 12%, #d4af37 32%, #c9a84c 52%, #a67c3a 72%, #8b5e3c 100%);
+  --gradient-gold-soft: linear-gradient(180deg, #d4af37 0%, #a68953 50%, #8b5e3c 100%);
+  --font-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
   --font-sans: 'Montserrat', 'Segoe UI', sans-serif;
-  --font-ar: 'Scheherazade New', 'Amiri', 'Traditional Arabic', serif;
+  --font-ar: 'Noto Naskh Arabic', 'Amiri', 'Scheherazade New', serif;
+  --font-ar-display: 'Amiri', 'Noto Naskh Arabic', serif;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,8 +37,10 @@ body {
   position: relative;
 }
 
-.text-gold {
-  background: var(--gradient-gold);
+.text-gold,
+.gold-gradient-text {
+  display: inline-block;
+  background: var(--gradient-gold-text);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -46,57 +52,12 @@ body {
   position: fixed;
   inset: 0;
   z-index: -1;
-  background:
-    radial-gradient(ellipse 55% 40% at 8% 15%, rgba(196, 160, 98, 0.14) 0%, transparent 55%),
-    radial-gradient(ellipse 50% 38% at 92% 88%, rgba(180, 155, 120, 0.12) 0%, transparent 50%),
-    radial-gradient(ellipse 45% 35% at 75% 12%, rgba(210, 190, 160, 0.1) 0%, transparent 45%),
-    radial-gradient(ellipse 40% 30% at 20% 85%, rgba(200, 175, 140, 0.1) 0%, transparent 45%),
-    var(--cream);
-}
-
-.page-bg::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.035' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
-  opacity: 0.8;
-  pointer-events: none;
-}
-
-.page-bg::after {
-  content: '';
-  position: absolute;
-  width: 280px;
-  height: 280px;
-  bottom: -80px;
-  left: -60px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(196, 160, 98, 0.12) 0%, transparent 70%);
-  animation: blob-float 18s ease-in-out infinite;
-  pointer-events: none;
-}
-
-@keyframes blob-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -25px) scale(1.08); }
-}
-
-.sunburst {
-  position: absolute;
-  top: -50px;
-  right: -50px;
-  width: 200px;
-  height: 200px;
-  color: var(--gold-mid);
-  opacity: 0.26;
-  pointer-events: none;
-  transform-origin: center center;
-  animation: sunburst-spin 100s linear infinite;
-}
-
-@keyframes sunburst-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  background-color: var(--cream);
+  background-image: url('assets/bg.png');
+  background-size: cover;
+  background-position: center top;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 #particles-canvas {
@@ -144,16 +105,16 @@ body {
 
 .welcome-bismillah {
   font-family: var(--font-ar);
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: 1.65;
+  line-height: 1.6;
   margin-bottom: 1rem;
-  background: linear-gradient(90deg, #8c6239, #d4af37, #c9a84c, #8c6239);
-  background-size: 300% 100%;
+  display: inline-block;
+  background: var(--gradient-gold-text);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gold-shimmer 7s ease-in-out infinite;
+  color: transparent;
 }
 
 .welcome-text {
@@ -235,16 +196,16 @@ body {
   z-index: 2;
   max-width: 520px;
   margin: 0 auto;
-  padding: 2.75rem 1.75rem 3rem;
+  padding: 2rem 1.5rem 2.5rem;
   text-align: center;
   opacity: 0;
-  transform: translateY(30px) scale(0.96);
-  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+  transform: translate3d(0, 40px, 0);
+  transition: opacity 0.8s ease, transform 0.8s ease;
 }
 
 body.invitation-open .invitation {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translate3d(0, 0, 0);
 }
 
 /* ── Ornament divider ── */
@@ -252,9 +213,9 @@ body.invitation-open .invitation {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 1.35rem auto;
+  margin: 0.85rem auto;
   max-width: 300px;
-  color: var(--gold-mid);
+  color: var(--gold-primary);
 }
 
 .ornament-divider svg path {
@@ -289,25 +250,15 @@ body.invitation-open .invitation {
   50% { background-position: 100% 50%; }
 }
 
-@keyframes float-soft {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-@keyframes name-reveal {
-  0% { opacity: 0; transform: scale(0.4) translateY(30px); filter: blur(10px); }
-  60% { transform: scale(1.08) translateY(-4px); }
-  100% { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
-}
-
-@keyframes label-pop {
-  from { opacity: 0; letter-spacing: 0.6em; transform: scale(0.9); }
-  to { opacity: 1; letter-spacing: 0.32em; transform: scale(1); }
-}
-
-@keyframes word-rise {
-  from { opacity: 0; transform: translateY(40px) rotateX(40deg); }
-  to { opacity: 1; transform: translateY(0) rotateX(0); }
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 40px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes burst-fly {
@@ -325,11 +276,6 @@ body.invitation-open .invitation {
   to { opacity: 1; transform: scale(1) rotate(0deg); }
 }
 
-@keyframes map-pulse {
-  0%, 100% { box-shadow: 0 3px 14px rgba(140, 98, 57, 0.25); }
-  50% { box-shadow: 0 6px 28px rgba(212, 175, 55, 0.45); }
-}
-
 .ornament-divider svg {
   width: 100%;
   height: auto;
@@ -342,176 +288,179 @@ body.invitation-open .invitation {
 }
 
 .bismillah-ar {
-  font-family: var(--font-ar);
-  font-size: clamp(1.65rem, 5.2vw, 2.15rem);
+  font-family: var(--font-ar-display);
+  font-size: clamp(2rem, 5.8vw, 2.35rem);
   font-weight: 700;
-  line-height: 1.5;
-  letter-spacing: 0;
-  background: linear-gradient(90deg, #8c6239, #d4af37, #f0d878, #8c6239);
-  background-size: 300% 100%;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  display: inline-block;
+  background: var(--gradient-gold-text);
+  background-size: 100% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gold-shimmer 4s ease-in-out infinite;
+  color: transparent;
 }
 
-.header.show-now .bismillah-ar {
-  animation: name-reveal 1s cubic-bezier(0.34, 1.56, 0.64, 1) both, gold-shimmer 4s ease-in-out 1s infinite;
+.header.show-now .bismillah-ar,
+.header.show-now .bismillah-en {
+  animation: fadeInUp 0.8s ease both;
+}
+
+.header.show-now .bismillah-en {
+  animation-delay: 0.12s;
 }
 
 .bismillah-en {
-  font-family: var(--font-sans);
-  font-size: clamp(0.6rem, 1.85vw, 0.7rem);
-  font-weight: 400;
-  color: var(--text-muted);
-  margin-top: 0.5rem;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
+  font-family: var(--font-serif);
+  font-size: 0.65rem;
+  font-weight: 500;
+  color: var(--brown);
+  margin-top: 0.35rem;
+  line-height: 1.55;
+  letter-spacing: 0.005em;
 }
 
 /* ── Intro ── */
 .intro {
-  margin: 1.5rem 0 1.85rem;
+  margin: 0.85rem 0 1.1rem;
 }
 
 .intro-heading {
   font-family: var(--font-serif);
-  font-size: clamp(2.1rem, 7vw, 2.85rem);
-  font-weight: 600;
-  color: var(--brown);
+  font-size: clamp(2.1rem, 6.8vw, 2.75rem);
+  font-weight: 700;
   line-height: 1.12;
   letter-spacing: -0.015em;
+  color: var(--brown);
+}
+
+.intro.show-now .intro-heading {
+  animation: fadeInUp 0.8s ease both;
 }
 
 .intro-sub {
   font-family: var(--font-sans);
-  font-size: clamp(0.78rem, 2.4vw, 0.88rem);
-  font-weight: 400;
-  color: var(--text-muted);
-  margin-top: 0.6rem;
-  line-height: 1.55;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--brown);
+  margin-top: 0.45rem;
+  line-height: 1.5;
 }
 
 /* ── Celebration sections ── */
 .celebration {
-  margin: 2rem 0;
+  margin: 1.15rem 0;
 }
 
 .section-label {
   font-family: var(--font-sans);
-  font-size: 0.6875rem;
-  font-weight: 700;
-  letter-spacing: 0.32em;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   color: var(--black);
-  margin-bottom: 1.15rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.35;
 }
 
-#quran-label {
-  font-size: 0.8125rem;
-  letter-spacing: 0.26em;
-  margin-top: 0.25rem;
+#bismillah-label {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 
 .name-ar {
   font-family: var(--font-ar);
-  font-size: clamp(2.35rem, 9.5vw, 3.15rem);
+  font-size: clamp(2.25rem, 9vw, 3rem);
   font-weight: 700;
-  line-height: 1.35;
-  margin-bottom: 0.45rem;
+  line-height: 1.25;
+  margin-bottom: 0.3rem;
   padding: 0 0.25rem;
-  background: linear-gradient(90deg, #8c6239, #a67c3a, #d4af37, #f0d878, #8c6239);
-  background-size: 300% 100%;
+  display: inline-block;
+  background: var(--gradient-gold-text);
+  background-size: 100% 200%;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  animation: gold-shimmer 5s ease-in-out infinite;
+  color: transparent;
 }
 
-.celebration.show-now .name-ar {
-  animation: name-reveal 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) both, gold-shimmer 5s ease-in-out 1.1s infinite;
-}
-
+.celebration.show-now .name-ar,
+.celebration.show-now .name-en,
+.celebration.show-now .relation,
 .celebration.show-now .section-label {
-  animation: label-pop 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation: fadeInUp 0.8s ease both;
 }
 
-.intro-word {
-  display: inline-block;
-  opacity: 0;
-  margin-right: 0.18em;
-}
-
-.intro.show-now .intro-word {
-  animation: word-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  animation-delay: calc(var(--wi) * 0.18s + 0.1s);
-}
+.celebration.show-now .section-label { animation-delay: 0s; }
+.celebration.show-now .name-ar { animation-delay: 0.1s; }
+.celebration.show-now .name-en { animation-delay: 0.2s; }
+.celebration.show-now .relation { animation-delay: 0.3s; }
 
 .intro.show-now .intro-sub {
-  animation: word-rise 0.8s ease 0.55s both;
+  animation: fadeInUp 0.8s ease 0.15s both;
 }
 
 .name-en {
   font-family: var(--font-sans);
-  font-size: clamp(1.05rem, 3.4vw, 1.2rem);
-  font-weight: 600;
+  font-size: clamp(1.05rem, 3.4vw, 1.125rem);
+  font-weight: 800;
   color: var(--black);
   letter-spacing: 0.005em;
-  margin-bottom: 0.4rem;
+  margin-bottom: 0.25rem;
 }
 
 .relation {
   font-family: var(--font-serif);
-  font-size: clamp(0.875rem, 2.6vw, 0.975rem);
+  font-size: 0.875rem;
   font-style: italic;
   font-weight: 500;
-  color: var(--gold-deep);
+  color: var(--brown);
 }
 
 /* ── Ampersand ── */
 .ampersand {
   font-family: var(--font-serif);
-  font-size: clamp(2.15rem, 7vw, 2.85rem);
-  font-weight: 500;
+  font-size: clamp(2rem, 6.5vw, 2.5rem);
+  font-weight: 700;
   font-style: italic;
   line-height: 1;
-  margin: 1.5rem 0 0.75rem;
-  background: var(--gradient-gold-soft);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  margin: 0.75rem 0 0.35rem;
+  color: var(--brown);
 }
 
 .ampersand.visible {
-  animation: float-soft 3s ease-in-out infinite, name-reveal 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  animation: fadeInUp 0.8s ease both;
 }
 
 /* ── Blessing message ── */
 .blessing-message {
-  font-family: var(--font-sans);
-  font-size: clamp(0.88rem, 2.8vw, 1rem);
-  font-weight: 400;
-  color: var(--text-muted);
-  line-height: 1.65;
-  max-width: 360px;
-  margin: 1.5rem auto;
+  font-family: var(--font-serif);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--brown);
+  line-height: 1.6;
+  max-width: 340px;
+  margin: 0.85rem auto;
   padding: 0 0.5rem;
 }
 
 /* ── Event details ── */
 .event-section {
-  margin-top: 1.75rem;
-  padding-top: 0.25rem;
+  margin-top: 1.25rem;
+  padding-top: 0;
 }
 
 .event-heading {
   font-family: var(--font-sans);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 0.3em;
+  font-size: 0.6875rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--gold-mid);
-  margin-bottom: 1.35rem;
+  color: var(--gold-primary);
+  margin-bottom: 1.25rem;
 }
 
 .event-grid {
@@ -537,19 +486,19 @@ body.invitation-open .invitation {
 
 .event-label {
   font-family: var(--font-sans);
-  font-size: 0.5875rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
+  font-size: 0.5625rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--gold-mid);
+  color: var(--gold-primary);
 }
 
 .event-value {
   font-family: var(--font-sans);
-  font-size: clamp(0.7rem, 2.1vw, 0.8rem);
-  font-weight: 500;
+  font-size: 0.6875rem;
+  font-weight: 700;
   color: var(--black);
-  line-height: 1.5;
+  line-height: 1.45;
 }
 
 .map-btn {
@@ -588,7 +537,7 @@ body.invitation-open .invitation {
 }
 
 .map-btn.visible {
-  animation: map-pulse 2.5s ease-in-out infinite;
+  animation: fadeInUp 0.8s ease both;
 }
 
 .map-btn svg {
@@ -610,16 +559,16 @@ body.invitation-open .invitation {
 
 /* ── Footer ── */
 .footer {
-  margin-top: 2.25rem;
-  padding-top: 0.25rem;
+  margin-top: 1.5rem;
+  padding-top: 0;
 }
 
 .footer p {
-  font-family: var(--font-sans);
-  font-size: clamp(0.72rem, 2.1vw, 0.82rem);
-  font-weight: 400;
+  font-family: var(--font-serif);
+  font-size: 0.6875rem;
+  font-weight: 500;
   font-style: normal;
-  color: var(--text-muted);
+  color: var(--brown-light);
   line-height: 1.55;
 }
 
@@ -662,72 +611,43 @@ body.invitation-open .invitation {
   animation: audio-pop 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s both;
 }
 
-/* ── Reveal animations ── */
-.reveal {
+/* ── Reveal animations (fadeInUp) ── */
+.reveal,
+.reveal-blur,
+.reveal-slide-left,
+.reveal-slide-right,
+.reveal-scale {
   opacity: 0;
-  transform: translateY(55px) scale(0.9);
+  transform: translate3d(0, 40px, 0);
   transition:
-    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.9s cubic-bezier(0.34, 1.2, 0.64, 1);
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
-.reveal.visible {
+.reveal.visible,
+.reveal-blur.visible,
+.reveal-slide-left.visible,
+.reveal-slide-right.visible,
+.reveal-scale.visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.reveal-slide-left {
-  transform: translateX(-70px) translateY(30px) scale(0.92);
-}
-
-.reveal-slide-left.visible {
-  transform: translateX(0) translateY(0) scale(1);
-}
-
-.reveal-slide-right {
-  transform: translateX(70px) translateY(30px) scale(0.92);
-}
-
-.reveal-slide-right.visible {
-  transform: translateX(0) translateY(0) scale(1);
+  transform: translate3d(0, 0, 0);
 }
 
 .reveal-blur {
-  filter: blur(12px);
-  transform: translateY(55px) scale(0.88);
-}
-
-.reveal-blur.visible {
-  filter: blur(0);
-  transform: translateY(0) scale(1);
-  transition:
-    opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 1.1s cubic-bezier(0.34, 1.2, 0.64, 1),
-    filter 1s ease;
-}
-
-.reveal-scale {
-  transform: translateY(40px) scale(0.5);
-}
-
-.reveal-scale.visible {
-  transform: translateY(0) scale(1);
-  transition:
-    opacity 0.85s ease,
-    transform 0.85s cubic-bezier(0.34, 1.65, 0.64, 1);
+  filter: none;
 }
 
 .reveal-stagger > * {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translate3d(0, 40px, 0);
   transition:
-    opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.75s cubic-bezier(0.34, 1.2, 0.64, 1);
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .reveal-stagger.visible > * {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate3d(0, 0, 0);
 }
 
 .reveal-stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
@@ -744,35 +664,26 @@ body.invitation-open .invitation {
 
 .event-grid.reveal-stagger > .event-col > .event-item {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translate3d(0, 40px, 0);
   transition:
-    opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+    opacity 0.8s ease,
+    transform 0.8s ease;
 }
 
 .event-grid.reveal-stagger.visible > .event-col > .event-item {
   opacity: 1;
-  transform: translateY(0);
-}
-
-.intro.show-now .intro-heading {
-  animation: heading-glow 1s ease 0.2s both;
-}
-
-@keyframes heading-glow {
-  from { letter-spacing: 0.04em; opacity: 0.6; }
-  to { letter-spacing: -0.015em; opacity: 1; }
+  transform: translate3d(0, 0, 0);
 }
 
 /* ── Responsive ── */
 @media (max-width: 420px) {
   .invitation {
-    padding: 2.25rem 1.2rem 2.5rem;
+    padding: 1.75rem 1.15rem 2.25rem;
   }
 
   .event-grid {
     grid-template-columns: 1fr;
-    gap: 0.95rem;
+    gap: 0.85rem;
     text-align: center;
   }
 
@@ -780,12 +691,15 @@ body.invitation-open .invitation {
     align-items: center;
   }
 
-  .section-label {
-    letter-spacing: 0.24em;
+  .section-label,
+  #bismillah-label {
+    font-size: clamp(0.625rem, 3.2vw, 0.75rem);
+    letter-spacing: 0.03em;
   }
 
-  #quran-label {
-    letter-spacing: 0.2em;
+  #bismillah-label {
+    transform: scale(0.96);
+    transform-origin: center;
   }
 }
 
@@ -816,13 +730,14 @@ body.invitation-open .invitation {
   .name-ar,
   .welcome-bismillah,
   .ampersand.visible,
-  .sunburst,
-  .page-bg::after,
-  .welcome-pulse,
-  .intro-word,
   .celebration.show-now .section-label,
   .celebration.show-now .name-ar,
-  .header.show-now .bismillah-ar {
+  .celebration.show-now .name-en,
+  .celebration.show-now .relation,
+  .header.show-now .bismillah-ar,
+  .header.show-now .bismillah-en,
+  .intro.show-now .intro-heading,
+  .intro.show-now .intro-sub {
     animation: none;
   }
 

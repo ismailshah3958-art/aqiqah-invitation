@@ -24,11 +24,12 @@
       setText("aqeeqah-name-en", cfg.aqeeqah.nameEnglish);
       setText("aqeeqah-relation", cfg.aqeeqah.relation);
     }
-    if (cfg.quranRecitation) {
-      setText("quran-label", cfg.quranRecitation.label);
-      setText("quran-name-ar", cfg.quranRecitation.nameArabic);
-      setText("quran-name-en", cfg.quranRecitation.nameEnglish);
-      setText("quran-relation", cfg.quranRecitation.relation);
+    const honoree = cfg.bismillahOf || cfg.quranRecitation;
+    if (honoree) {
+      setText("bismillah-label", honoree.label);
+      setText("bismillah-name-ar", honoree.nameArabic);
+      setText("bismillah-name-en", honoree.nameEnglish);
+      setText("bismillah-relation", honoree.relation);
     }
     setText("blessing-message", cfg.message);
     setText("footer-text", cfg.footer);
@@ -48,13 +49,7 @@
   }
 
   function splitIntroHeading() {
-    const h = document.getElementById("intro-heading");
-    if (!h || h.dataset.split) return;
-    const words = h.textContent.trim().split(/\s+/);
-    h.innerHTML = words
-      .map((w, i) => `<span class="intro-word" style="--wi:${i}">${w}</span>`)
-      .join(" ");
-    h.dataset.split = "1";
+    /* keep heading as plain text so title stays visible with gradient/color */
   }
 
   function activateElement(el) {
@@ -90,14 +85,31 @@
     document.querySelectorAll(".reveal").forEach((el) => activateElement(el));
   }
 
+  function openInvitation() {
+    document.body.classList.add("invitation-open");
+    splitIntroHeading();
+
+    if (window.InvitationFX) {
+      window.InvitationFX.flash();
+      window.InvitationFX.burst(document.getElementById("invitation"));
+    }
+
+    if (reducedMotion) showAllInstant();
+    else runOpeningShow();
+  }
+
   function initQuranAudio() {
     const ayah = cfg.quranAyah;
-    if (!ayah || !ayah.audioUrl) return;
-
     const audio = document.getElementById("quran-audio");
-    const overlay = document.getElementById("welcome-overlay");
     const toggle = document.getElementById("audio-toggle");
-    if (!audio || !overlay || !toggle) return;
+
+    openInvitation();
+
+    if (!audio || !toggle) return;
+
+    toggle.classList.add("audio-enter");
+
+    if (!ayah || !ayah.audioUrl) return;
 
     audio.src = ayah.audioUrl;
     audio.volume = typeof ayah.volume === "number" ? ayah.volume : 0.3;
@@ -112,34 +124,19 @@
       audio.play().then(() => updateToggle(true)).catch(() => updateToggle(false));
     }
 
-    function openInvitation() {
-      overlay.classList.add("is-hidden");
-      document.body.classList.add("invitation-open");
-      toggle.hidden = false;
-      toggle.classList.add("audio-enter");
-      startAudio();
-
-      if (window.InvitationFX) {
-        window.InvitationFX.flash();
-        window.InvitationFX.burst(document.getElementById("invitation"));
-      }
-
-      splitIntroHeading();
-
-      if (reducedMotion) showAllInstant();
-      else runOpeningShow();
-    }
-
-    overlay.addEventListener("click", openInvitation, { once: true });
-
     toggle.addEventListener("click", (e) => {
       e.stopPropagation();
       if (audio.paused) startAudio();
-      else { audio.pause(); updateToggle(false); }
+      else {
+        audio.pause();
+        updateToggle(false);
+      }
     });
 
     audio.addEventListener("play", () => updateToggle(true));
     audio.addEventListener("pause", () => updateToggle(false));
+
+    startAudio();
   }
 
   applyConfig();

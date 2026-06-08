@@ -3,63 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Aqiqah & First Quran Recitation — You are warmly invited">
-  <title>Aqiqah Invitation</title>
+  <meta name="description" content="Aqiqah & Bismillah — You are warmly invited">
+  <title>Aqiqah & Bismillah — Invitation</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Scheherazade+New:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Montserrat:wght@400;500;600;700;800&family=Noto+Naskh+Arabic:wght@600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <!-- Welcome overlay -->
-  <div class="welcome-overlay" id="welcome-overlay">
-    <div class="welcome-card">
-      <p class="welcome-bismillah" lang="ar">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</p>
-      <p class="welcome-text">Invitation</p>
-      <p class="welcome-hint">Tap to open</p>
-      <span class="welcome-pulse" aria-hidden="true"></span>
-    </div>
-  </div>
+  <audio id="quran-audio" preload="auto" loop autoplay></audio>
 
-  <audio id="quran-audio" preload="auto" loop></audio>
-
-  <button class="audio-toggle" id="audio-toggle" type="button" aria-label="Play or pause Quran recitation" hidden>
+  <button class="audio-toggle" id="audio-toggle" type="button" aria-label="Play or pause Quran recitation">
     <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
     <svg class="icon-pause" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
   </button>
 
   <canvas id="particles-canvas" aria-hidden="true"></canvas>
 
-  <div class="page-bg" aria-hidden="true">
-    <svg class="sunburst" viewBox="0 0 200 200" aria-hidden="true">
-      <g fill="none" stroke="currentColor" stroke-width="0.6" opacity="0.45">
-        <line x1="100" y1="100" x2="100" y2="10"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(15 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(30 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(45 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(60 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(75 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(90 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(105 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(120 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(135 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(150 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(165 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(180 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(195 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(210 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(225 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(240 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(255 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(270 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(285 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(300 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(315 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(330 100 100)"/>
-        <line x1="100" y1="100" x2="100" y2="10" transform="rotate(345 100 100)"/>
-      </g>
-    </svg>
-  </div>
+  <div class="page-bg" aria-hidden="true"></div>
 
   <main class="invitation" id="invitation">
     <!-- Header -->
@@ -68,11 +29,11 @@
       <p class="bismillah-en" id="bismillah-en">In The Name Of Allah, The Most Gracious, The Most Merciful</p>
       <div class="ornament-divider" aria-hidden="true">
         <svg viewBox="0 0 300 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0 12 H118" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M182 12 H300" stroke="currentColor" stroke-width="0.8"/>
-          <path d="M126 12 L132 6 L138 12 L132 18 Z" stroke="currentColor" stroke-width="0.8" fill="none"/>
-          <circle cx="150" cy="12" r="1.2" fill="currentColor"/>
-          <path d="M162 12 L168 6 L174 12 L168 18 Z" stroke="currentColor" stroke-width="0.8" fill="none"/>
+          <path d="M0 12 H118" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M182 12 H300" stroke="currentColor" stroke-width="1.1"/>
+          <path d="M126 12 L132 6 L138 12 L132 18 Z" stroke="currentColor" stroke-width="1.1" fill="none"/>
+          <circle cx="150" cy="12" r="1.4" fill="currentColor"/>
+          <path d="M162 12 L168 6 L174 12 L168 18 Z" stroke="currentColor" stroke-width="1.1" fill="none"/>
           <path d="M118 12 Q120 9 122 12 Q120 15 118 12" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
           <path d="M178 12 Q180 9 182 12 Q180 15 178 12" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
         </svg>
@@ -80,36 +41,36 @@
     </header>
 
     <!-- Intro -->
-    <section class="intro reveal reveal-blur">
+    <section class="intro reveal">
       <h1 class="intro-heading" id="intro-heading">We are Blessed</h1>
       <p class="intro-sub" id="intro-sub">to humbly invite you to the celebration of</p>
     </section>
 
     <!-- Aqiqah -->
-    <section class="celebration reveal reveal-stagger reveal-slide-left">
+    <section class="celebration reveal reveal-stagger">
       <p class="section-label" id="aqeeqah-label">A Q I Q A H</p>
       <p class="name-ar" id="aqeeqah-name-ar" lang="ar">محمد شاهنشاه طارق</p>
       <p class="name-en" id="aqeeqah-name-en">Muhammad Shahenshah Tariq</p>
       <p class="relation" id="aqeeqah-relation">Our Newborn Son</p>
     </section>
 
-    <p class="ampersand reveal reveal-scale" aria-hidden="true">&amp;</p>
+    <p class="ampersand reveal" aria-hidden="true">&amp;</p>
 
-    <!-- First Quran Recitation -->
-    <section class="celebration reveal reveal-stagger reveal-slide-right">
-      <p class="section-label" id="quran-label">FIRST QURAN RECITATION</p>
-      <p class="name-ar" id="quran-name-ar" lang="ar">آئلن طارق</p>
-      <p class="name-en" id="quran-name-en">Aylin Tariq</p>
-      <p class="relation" id="quran-relation">Our Beloved Daughter</p>
+    <!-- Bismillah -->
+    <section class="celebration reveal reveal-stagger">
+      <p class="section-label" id="bismillah-label">B I S M I L L A H  O F</p>
+      <p class="name-ar" id="bismillah-name-ar" lang="ar">آئلن طارق</p>
+      <p class="name-en" id="bismillah-name-en">Aylin Tariq</p>
+      <p class="relation" id="bismillah-relation">Our Beloved Daughter</p>
     </section>
 
     <div class="ornament-divider reveal" aria-hidden="true">
       <svg viewBox="0 0 300 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M0 12 H118" stroke="currentColor" stroke-width="0.8"/>
-        <path d="M182 12 H300" stroke="currentColor" stroke-width="0.8"/>
-        <path d="M126 12 L132 6 L138 12 L132 18 Z" stroke="currentColor" stroke-width="0.8" fill="none"/>
-        <circle cx="150" cy="12" r="1.2" fill="currentColor"/>
-        <path d="M162 12 L168 6 L174 12 L168 18 Z" stroke="currentColor" stroke-width="0.8" fill="none"/>
+        <path d="M0 12 H118" stroke="currentColor" stroke-width="1.1"/>
+        <path d="M182 12 H300" stroke="currentColor" stroke-width="1.1"/>
+        <path d="M126 12 L132 6 L138 12 L132 18 Z" stroke="currentColor" stroke-width="1.1" fill="none"/>
+        <circle cx="150" cy="12" r="1.4" fill="currentColor"/>
+        <path d="M162 12 L168 6 L174 12 L168 18 Z" stroke="currentColor" stroke-width="1.1" fill="none"/>
         <path d="M118 12 Q120 9 122 12 Q120 15 118 12" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
         <path d="M178 12 Q180 9 182 12 Q180 15 178 12" stroke="currentColor" stroke-width="0.5" opacity="0.6"/>
       </svg>
@@ -131,7 +92,7 @@
           </div>
           <div class="event-item">
             <span class="event-label">VENUE:</span>
-            <span class="event-value" id="event-venue">LuckyOne Apartments Recreation Event Area</span>
+            <span class="event-value" id="event-venue">LuckyOne Apartments Recreation</span>
           </div>
         </div>
         <div class="event-col">
@@ -145,7 +106,7 @@
           </div>
         </div>
       </div>
-      <a class="map-btn reveal reveal-scale" id="map-link" href="https://www.google.com/maps/search/?api=1&query=LuckyOne+Apartments+Recreation+Event+Area+Karachi" target="_blank" rel="noopener noreferrer">
+      <a class="map-btn reveal" id="map-link" href="https://www.google.com/maps/search/?api=1&query=LuckyOne+Apartments+Recreation+Karachi" target="_blank" rel="noopener noreferrer">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
         Open in Google Maps
       </a>

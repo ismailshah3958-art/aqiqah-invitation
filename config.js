@@ -2,7 +2,7 @@
  * Invitation — Edit your details here
  */
 const INVITATION = {
-  pageTitle: "Aqiqah & First Quran Recitation — Invitation",
+  pageTitle: "Aqiqah & Bismillah — Invitation",
 
   bismillah: {
     arabic: "بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ",
@@ -21,8 +21,8 @@ const INVITATION = {
     relation: "Our Newborn Son",
   },
 
-  quranRecitation: {
-    label: "FIRST QURAN RECITATION",
+  bismillahOf: {
+    label: "B I S M I L L A H  O F",
     nameArabic: "آئلن طارق",
     nameEnglish: "Aylin Tariq",
     relation: "Our Beloved Daughter",
@@ -33,9 +33,9 @@ const INVITATION = {
   event: {
     date: "Sunday, 14th June 2026",
     time: "7:00 PM — 11:00 PM",
-    venue: "LuckyOne Apartments Recreation Event Area",
+    venue: "LuckyOne Apartments Recreation",
     warmRegards: "Zainab and Tariq",
-    mapLink: "https://www.google.com/maps/search/?api=1&query=LuckyOne+Apartments+Recreation+Event+Area+Karachi",
+    mapLink: "https://www.google.com/maps/search/?api=1&query=LuckyOne+Apartments+Recreation+Karachi",
   },
 
   footer: "We sincerely request the honour of your presence",
