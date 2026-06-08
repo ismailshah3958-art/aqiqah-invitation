@@ -2,6 +2,7 @@
   const cfg = typeof INVITATION !== "undefined" ? INVITATION : {};
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   const STEP_DELAY = 750;
+  const isTouchDevice = "ontouchstart" in window || navigator.maxTouchPoints > 0;
 
   function setText(id, value) {
     const el = document.getElementById(id);
@@ -102,6 +103,7 @@
     const ayah = cfg.quranAyah;
     const audio = document.getElementById("quran-audio");
     const toggle = document.getElementById("audio-toggle");
+    const hint = document.getElementById("audio-hint");
 
     openInvitation();
 
@@ -114,14 +116,65 @@
     audio.src = ayah.audioUrl;
     audio.volume = typeof ayah.volume === "number" ? ayah.volume : 0.3;
     audio.loop = ayah.loop !== false;
+    audio.setAttribute("playsinline", "");
+    audio.setAttribute("webkit-playsinline", "");
+
+    let unlockBound = false;
 
     function updateToggle(playing) {
       toggle.classList.toggle("is-playing", playing);
+      toggle.classList.toggle("needs-tap", !playing && isTouchDevice);
       toggle.setAttribute("aria-label", playing ? "Pause Quran recitation" : "Play Quran recitation");
     }
 
+    function hideHint() {
+      if (hint) hint.hidden = true;
+      toggle.classList.remove("needs-tap");
+    }
+
+    function showHint() {
+      if (hint && isTouchDevice) hint.hidden = false;
+      toggle.classList.add("needs-tap");
+    }
+
+    function removeUnlockListeners() {
+      if (!unlockBound) return;
+      ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) => {
+        document.removeEventListener(evt, onUserGesture, true);
+      });
+      unlockBound = false;
+    }
+
+    function onUserGesture() {
+      if (!audio.paused) {
+        hideHint();
+        removeUnlockListeners();
+        return;
+      }
+      startAudio();
+    }
+
+    function bindUnlockListeners() {
+      if (unlockBound) return;
+      ["touchstart", "touchend", "click", "scroll", "keydown"].forEach((evt) => {
+        document.addEventListener(evt, onUserGesture, { capture: true, passive: true });
+      });
+      unlockBound = true;
+    }
+
     function startAudio() {
-      audio.play().then(() => updateToggle(true)).catch(() => updateToggle(false));
+      return audio
+        .play()
+        .then(() => {
+          updateToggle(true);
+          hideHint();
+          removeUnlockListeners();
+        })
+        .catch(() => {
+          updateToggle(false);
+          showHint();
+          bindUnlockListeners();
+        });
     }
 
     toggle.addEventListener("click", (e) => {
@@ -133,7 +186,12 @@
       }
     });
 
-    audio.addEventListener("play", () => updateToggle(true));
+    audio.addEventListener("play", () => {
+      updateToggle(true);
+      hideHint();
+      removeUnlockListeners();
+    });
+
     audio.addEventListener("pause", () => updateToggle(false));
 
     startAudio();

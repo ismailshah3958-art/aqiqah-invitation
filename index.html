@@ -11,7 +11,9 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <audio id="quran-audio" preload="auto" loop autoplay></audio>
+  <audio id="quran-audio" preload="auto" loop playsinline webkit-playsinline></audio>
+
+  <p class="audio-hint" id="audio-hint" role="status" aria-live="polite" hidden>Tap anywhere to play recitation</p>
 
   <button class="audio-toggle" id="audio-toggle" type="button" aria-label="Play or pause Quran recitation">
     <svg class="icon-play" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
